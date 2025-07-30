@@ -1,15 +1,21 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Pause, Video, Heart, Maximize, Volume2, VolumeX } from 'lucide-react';
-import v1 from '../assets/videos/demo.mp4';
-import v2 from '../assets/videos/music.mp4';
+// import v1 from '../assets/videos/demo.mp4';
+// import v2 from '../assets/videos/music.mp4';
 import aunty from '../assets/videos/aunty.mp4';
 import uncle from '../assets/videos/uncle.mp4';
 import golu from '../assets/videos/golu.mp4';
-import sanju from '../assets/videos/music.mp4';
-import shashank from '../assets/videos/music.mp4';
-import trisha from '../assets/videos/music.mp4';
-import tb from '../assets/images/sticky_note_2.png';
+import sanju from '../assets/videos/sanju.mp4';
+import shashank from '../assets/videos/shashank.mp4';
+import trisha from '../assets/videos/trisha.mp4';
+import dad_tb from '../assets/images/Hide/dad_tb.jpg';
+import mom_tb from '../assets/images/Hide/mom_tb.jpg';
+import sis_tb from '../assets/images/Hide/sis_tb.jpg';
+import bro_tb from '../assets/images/Hide/bro_tb.jpg';
+import bff_tb from '../assets/images/Hide/bff_tb.jpg';
+import friends_tb from '../assets/images/Hide/friends_tb.jpg';
+import bestie_tb from '../assets/images/Hide/bestie_tb.jpg';
 import '../App.css';
 
 const VideoMessages = () => {
@@ -24,7 +30,7 @@ const VideoMessages = () => {
   {
     id: 1,
     title: 'Birthday Wish from Dad',
-    thumbnail: null,
+    thumbnail: dad_tb,
     videoUrl: uncle,
     sender: 'Dad',
     message: 'Happy Birthday Lakshmi! Pappa is so proud of the amazing girl you’ve become. 💝'
@@ -32,7 +38,7 @@ const VideoMessages = () => {
   {
     id: 2,
     title: 'Birthday Wish from Mom',
-    thumbnail: null,
+    thumbnail: mom_tb,
     videoUrl: aunty,
     sender: 'Mom',
     message: 'Huttu habbada shubhashayagalu Kulli! Amma loves you endlessly. 💖'
@@ -40,51 +46,51 @@ const VideoMessages = () => {
   {
     id: 3,
     title: 'Birthday Wish from Sanju',
-    thumbnail: null,
-    videoUrl: v1,
+    thumbnail: sis_tb,
+    videoUrl: sanju,
     sender: 'Sanju',
     message: 'Happy Birth day Lakshmi! You’ll always be my fav person to fight and laugh with! 💟'
   },
   {
     id: 4,
     title: 'Birthday Wish from Golu',  
-    thumbnail: null,
+    thumbnail: bro_tb,
     videoUrl: golu,
     sender: 'Golu',
     message: 'Happi b’day Diya dii!! 🎂💛'
   },
   {
     id: 5,
-    title: 'Birthday Wish from Trisha',  
-    thumbnail: null,
-    videoUrl: trisha,
-    sender: 'Trisha',
-    message: 'Happy Birthday day Diya! Life’s more fun with a good friend like you! 😄💕'
-  },
-  {
-    id: 6,
     title: 'Birthday Wish from Shashank',
-    thumbnail: null,
+    thumbnail: bff_tb,
     videoUrl: shashank,
     sender: 'Shashank',
     message: 'Happy Birthday Day Z! From dance class days till now — still the same sparkle! 💃✨'
   },
   {
-    id: 7,
-    title: 'Childhood Memories',
-    thumbnail: null,
-    videoUrl: v1,
-    sender: 'Sarah',
-    message: 'Those silly childhood moments with you still live rent-free in my heart! ❤️'
+    id: 6,
+    title: 'Birthday Wish from Trisha',  
+    thumbnail: friends_tb,
+    videoUrl: trisha,
+    sender: 'Trisha',
+    message: 'Happy Birthday day Diya! Life’s more fun with a good friend like you! 😄💕'
   },
-  {
-    id: 8,
-    title: 'Work Team Celebration',
-    thumbnail: null,
-    videoUrl: v1,
-    sender: 'Work Family',
-    message: 'Office isn’t the same without your jokes and chaos — happy bday superstar! 🎉'
-  }
+  // {
+  //   id: 7,
+  //   title: 'Childhood Memories',
+  //   thumbnail: null,
+  //   videoUrl: v1,
+  //   sender: 'Sarah',
+  //   message: 'Those silly childhood moments with you still live rent-free in my heart! ❤️'
+  // },
+  // {
+  //   id: 8,
+  //   title: 'Work Team Celebration',
+  //   thumbnail: null,
+  //   videoUrl: v1,
+  //   sender: 'Work Family',
+  //   message: 'Office isn’t the same without your jokes and chaos — happy bday superstar! 🎉'
+  // }
 ];
 
   useEffect(() => {
