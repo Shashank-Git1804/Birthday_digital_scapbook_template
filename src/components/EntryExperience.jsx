@@ -4,9 +4,12 @@ import { Heart, Sparkles } from 'lucide-react';
 import '../App.css';
 
 const EntryExperience = ({ onEnter }) => {
+  // **TODO: Change countdown time here (in seconds)**
   const [countdown, setCountdown] = useState(3);
+
   const [showButton, setShowButton] = useState(false);
 
+  // Countdown logic
   useEffect(() => {
     const timer = setInterval(() => {
       setCountdown((prev) => {
@@ -22,6 +25,7 @@ const EntryExperience = ({ onEnter }) => {
     return () => clearInterval(timer);
   }, []);
 
+  // **TODO: Customize confetti colors here**
   const confettiPieces = Array.from({ length: 50 }, (_, i) => ({
     id: i,
     x: Math.random() * 100,
@@ -34,6 +38,7 @@ const EntryExperience = ({ onEnter }) => {
     <AnimatePresence>
       <motion.div
         className="fixed inset-0 z-50 flex items-center justify-center"
+        // **TODO: Change background gradient colors here**
         style={{
           background: 'linear-gradient(135deg, #FFFDD0 0%, #E6E6FA 50%, #FFB6C1 100%)'
         }}
@@ -42,7 +47,7 @@ const EntryExperience = ({ onEnter }) => {
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
       >
-        {/* Confetti Animation */}
+        {/* 🎉 Confetti Animation */}
         <div className="absolute inset-0 overflow-hidden">
           {confettiPieces.map((piece) => (
             <motion.div
@@ -69,7 +74,7 @@ const EntryExperience = ({ onEnter }) => {
           ))}
         </div>
 
-        {/* Main Content */}
+        {/* 🌟 Main Content */}
         <div className="text-center z-10 px-6">
           <motion.div
             initial={{ scale: 0 }}
@@ -77,15 +82,21 @@ const EntryExperience = ({ onEnter }) => {
             transition={{ duration: 0.8, type: 'spring', bounce: 0.4 }}
             className="mb-8"
           >
+            {/* 💖 Icon above title */}
             <Heart className="w-16 h-16 mx-auto text-pink-400 mb-4" />
+
+            {/* **TODO: Change the name inside title** */}
             <h1 className="handwritten text-responsive-xl text-gray-800 mb-2">
-              Happy Birthday KantriKulli!
+              Happy Birthday (Name)!
             </h1>
+
+            {/* **TODO: Change tagline/subtitle here** */}
             <p className="text-responsive-md text-gray-600">
               A digital scrapbook filled with love and memories
             </p>
           </motion.div>
 
+          {/* Countdown display */}
           {countdown > 0 && (
             <motion.div
               key={countdown}
@@ -102,12 +113,14 @@ const EntryExperience = ({ onEnter }) => {
             </motion.div>
           )}
 
+          {/* "Let's Celebrate" button */}
           {showButton && (
             <motion.button
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.6, type: 'spring' }}
               onClick={onEnter}
+              // **TODO: Customize button style in CSS**
               className="btn-pastel flex items-center gap-2 mx-auto text-lg"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -119,7 +132,7 @@ const EntryExperience = ({ onEnter }) => {
           )}
         </div>
 
-        {/* Floating Hearts */}
+        {/* 💗 Floating Hearts */}
         <div className="absolute inset-0 pointer-events-none">
           {[...Array(8)].map((_, i) => (
             <motion.div
@@ -139,6 +152,7 @@ const EntryExperience = ({ onEnter }) => {
                 ease: 'easeInOut'
               }}
             >
+              {/* **TODO: Change heart color here** */}
               <Heart className="w-6 h-6 text-pink-300 opacity-60" />
             </motion.div>
           ))}
@@ -149,4 +163,3 @@ const EntryExperience = ({ onEnter }) => {
 };
 
 export default EntryExperience;
-

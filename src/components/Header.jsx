@@ -13,9 +13,10 @@ import {
 import '../App.css';
 
 const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false); // **Tracks whether the user has scrolled**
+  const [menuOpen, setMenuOpen] = useState(false); // **Tracks mobile menu open/close state**
 
+  // **Detect scroll to change header background style**
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -25,18 +26,22 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // **Scroll smoothly to a section by ID**
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
-      setMenuOpen(false);
+      setMenuOpen(false); // **Close mobile menu when navigating**
     } else {
       console.warn(`Element with id="${sectionId}" not found.`);
     }
   };
 
+  // **📝 Navigation items list**
+  // **TODO: Change 'label' for display text and 'id' to match your actual section IDs**
+  // **TODO: Add/remove items if you want more or fewer navigation links**
   const navItems = [
-    { id: 'hero', label: 'Home', icon: Heart },
+    { id: 'hero', label: 'Home', icon: Heart }, // **TODO: Change 'Home' to your preferred label**
     { id: 'gallery', label: 'Photos', icon: Camera },
     { id: 'videos', label: 'Videos', icon: Calendar },
     { id: 'playlist', label: 'Music', icon: Music },
@@ -46,32 +51,35 @@ const Header = () => {
 
   return (
     <motion.header
-    className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-300 bg-pink/80 backdrop-blur-md shadow-lg${
-    isScrolled ? 'bg-white/90 backdrop-blur-md shadow-lg'
-          : 'bg-transparent'
-  }`}
-  initial={{ y: -100 }}
-  animate={{ y: 0 }}
-  transition={{ duration: 0.6 }}
->
-     
+      // **Header styling**
+      // **TODO: Change background colors, shadows, or blur here**
+      className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-300 bg-pink/80 backdrop-blur-md shadow-lg${
+        isScrolled ? 'bg-white/90 backdrop-blur-md shadow-lg' : 'bg-transparent'
+      }`}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
+          {/* **🎉 Site title** */}
+          {/* **TODO: Replace "(Name)" with the actual birthday person's name** */}
           <motion.div
-            className="handwritten text-2xl md:text-3xl text-pink-600"
+            className="handwritten text-2xl md:text-3xl text-pink-600 font-bold"
             whileHover={{ scale: 1.05 }}
             onClick={() => scrollToSection('hero')}
           >
-            Mahalakshmi's Birthday
+            (Name)'s Birthday
           </motion.div>
 
-          {/* Desktop Nav */}
+          {/* **💻 Desktop Navigation (visible on large screens)** */}
+          {/* **TODO: Update icons or labels if needed** */}
           <nav className="hidden lg:flex items-center space-x-6">
             {navItems.map(({ id, label, icon: Icon }) => (
               <motion.button
                 key={id}
                 onClick={() => scrollToSection(id)}
-                className="flex items-center gap-2 px-3 py-2 rounded-full text-gray-700 hover:text-pink-600 transition"
+                className="flex items-center gap-2 px-3 py-2 rounded-full text-gray-700 hover:text-pink-600 transition font-bold"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -81,7 +89,8 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Mobile Hamburger */}
+          {/* **📱 Mobile Hamburger Menu Button** */}
+          {/* **TODO: Change button color/background if you want a different theme** */}
           <motion.button
             onClick={() => setMenuOpen(!menuOpen)}
             className="lg:hidden p-2 rounded-full bg-pink-100 text-pink-600"
@@ -92,7 +101,8 @@ const Header = () => {
           </motion.button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* **📱 Mobile Menu (slides down when hamburger clicked)** */}
+        {/* **TODO: Change layout (grid/column) if you want a different style for mobile menu** */}
         <AnimatePresence>
           {menuOpen && (
             <motion.nav
@@ -106,7 +116,7 @@ const Header = () => {
                 <motion.button
                   key={id}
                   onClick={() => scrollToSection(id)}
-                  className="flex items-center gap-1 px-3 py-2 rounded-full bg-pink-50 text-pink-600 text-sm"
+                  className="flex items-center gap-1 px-3 py-2 rounded-full bg-pink-50 text-pink-600 text-sm font-bold"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -114,7 +124,6 @@ const Header = () => {
                   <span>{label}</span>
                 </motion.button>
               ))}
-              
             </motion.nav>
           )}
         </AnimatePresence>

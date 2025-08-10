@@ -3,10 +3,17 @@ import { motion } from 'framer-motion';
 import Confetti from 'react-confetti';
 import { useWindowSize } from '@react-hook/window-size';
 import { Clock, Heart, Star } from 'lucide-react';
-import pic from '../assets/images/hero_sec_3.1.jpg';
+// **TODO: Change to your desired image**
+import default_pic from '../assets/images/Hide/user_icon.jpg';
 import '../App.css';
 
 const Hero = () => {
+  // **TODO: Change this name**
+  const celebrantName = 'Your Name Here';
+
+  // **TODO: Set birthday month & day (MM-DD)**
+  const birthdayDate = '01-01';
+
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -18,7 +25,6 @@ const Hero = () => {
   const [countdownFinished, setCountdownFinished] = useState(false);
   const [hasStartedCelebration, setHasStartedCelebration] = useState(false);
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-
   const [width, height] = useWindowSize();
 
   const testMode = false;
@@ -26,12 +32,12 @@ const Hero = () => {
   const getNextBirthday = () => {
     const now = new Date();
     const thisYear = now.getFullYear();
-    const birthdayThisYear = new Date(`${thisYear}-07-31T00:00:00`);
+    const birthdayThisYear = new Date(`${thisYear}-${birthdayDate}T00:00:00`);
 
     if (testMode) return new Date(now.getTime() + 10000); // 10s test
 
     return now > birthdayThisYear
-      ? new Date(`${thisYear + 1}-07-31T00:00:00`)
+      ? new Date(`${thisYear + 1}-${birthdayDate}T00:00:00`)
       : birthdayThisYear;
   };
 
@@ -97,7 +103,7 @@ const Hero = () => {
         >
           <div className="text-center bg-white p-8 rounded-xl shadow-2xl border-4 border-yellow-300 max-w-lg">
             <h2 className="text-4xl md:text-5xl font-bold text-yellow-500 handwritten mb-4">
-              🎉 Happy Birthday Mahalakshmi! 🎉
+              🎉 Happy Birthday {celebrantName}! 🎉
             </h2>
             <p className="text-lg text-gray-700 mb-6">
               May your year be full of love, magic, and unforgettable memories ✨
@@ -105,7 +111,7 @@ const Hero = () => {
             <motion.button
               onClick={() => {
                 setIsBirthday(false);
-                setHasStartedCelebration(true); // revert to pink
+                setHasStartedCelebration(true);
               }}
               className="btn-pastel px-6 py-3 rounded-xl bg-yellow text-white font-bold mt-2 shadow-lg hover:bg-yellow-500"
             >
@@ -161,7 +167,7 @@ const Hero = () => {
         >
           <motion.div variants={itemVariants} className="mb-8 mt-14">
             <h1 className="handwritten text-responsive-xl text-gray-800 mb-4">
-              Happy Birthday, Mahalakshmi!
+              Happy Birthday, {celebrantName}!
             </h1>
             <p className="text-responsive-md text-gray-600 max-w-2xl mx-auto">
               Welcome to your very own digital scrapbook, filled with love, memories,
@@ -173,9 +179,9 @@ const Hero = () => {
             <div className="polaroid-frame scrapbook-shadow max-w-sm">
               <div className="w-full h-64 rounded-lg overflow-hidden mb-4">
                 <img
-                  src={pic}
-                  alt="Birthday Memory"
-                  className="w-full h-full object-cover object-[0_30%]"
+                  src={default_pic}
+                  alt="Celebration Memory"
+                  className="w-full h-full object-cover object-center"
                 />
               </div>
               <p className="handwritten text-lg text-gray-700 text-center">

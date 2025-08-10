@@ -1,83 +1,82 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Star, Heart, Sparkles } from 'lucide-react';
-import first_pic from "../assets/images/Hide/1st_pic_z.jpg";
-import lost_kid from "../assets/images/Hide/lost_kid.jpg";
-import dance from "../assets/images/Hide/dance.jpg";
-import BCA from "../assets/images/Hide/BCA.jpg";
-import cllg_frns from "../assets/images/Hide/cllg_frns.jpg";
-import red from "../assets/images/Hide/red.jpg";
-import golu from "../assets/images/Hide/collage_golu.jpg";
+import user_1 from "../assets/images/Hide/user_1.png";
+import user_2 from "../assets/images/Hide/user_2.png";
+import user_3 from "../assets/images/Hide/user_3.png";
+import user_4 from "../assets/images/Hide/user_4.png";
+import user_5 from "../assets/images/Hide/user_5.png";
+import user_6 from "../assets/images/Hide/user_6.png";
+import user_7 from "../assets/images/Hide/user_7.png";
 import '../App.css';
 
 const Timeline = () => {
-  // Sample timeline data - replace with actual milestones
-const milestones = [
-  {
-    id: 1,
-    year: '2006',
-    title: 'Born to Shine',
-    description:
-      'The world grew warmer and brighter the day you arrived. That first smile? It lit up every heart in the room.',
-    image: first_pic,
-    side: 'left'
-  },
-  {
-    id: 2,
-    year: '2010',
-    title: 'First Day of School',
-    description:
-      'Tiny shoes, big dreams. You stepped into the classroom with courage — and walked out with friendships that began with your gentle heart.',
-    image: lost_kid,
-    side: 'right'
-  },
-  {
-    id: 3,
-    year: '2015',
-    title: 'Joined Dance Class',
-    description:
-      'With every graceful move, the world saw the spark in you. That’s when your rhythm, spirit, and confidence truly started to shine.',
-    image: dance,
-    side: 'left'
-  },
-  {
-    id: 4,
-    year: '2021',
-    title: 'A New Bond Begins',
-    description:
-      'Your heart grew bigger when your little brother arrived. You weren’t just a sister — you became his first best friend and gentle protector.',
-    image: golu,
-    side: 'right'
-  },
-  {
-    id: 5,
-    year: '2023',
-    title: 'New Beginnings',
-    description:
-      'Stepping into the world of BCA with dreams in your eyes and determination in your soul. The journey of growth had truly begun.',
-    image: BCA,
-    side: 'left'
-  },
-  {
-    id: 6,
-    year: '2024',
-    title: 'College Memories',
-    description:
-      'Laughter echoing in the hallways, midnight talks, and bonds that will stand the test of time — your college life began to shape your story.',
-    image: cllg_frns,
-    side: 'right'
-  },
-  {
-    id: 7,
-    year: '2025',
-    title: 'Today & Beyond',
-    description:
-      'Here you are — wiser, stronger, and more radiant than ever. Today is a celebration of all you’ve become… and the beautiful journey ahead.',
-    image: red,
-    side: 'left'
-  }
-];
-
+  // **TODO: Replace with dynamic data source if needed in future**
+  const milestones = [
+    {
+      id: 1,
+      year: '2005',
+      title: 'A New Chapter Begins',
+      description:
+        'The journey starts here — a fresh story full of possibilities and warmth.',
+      image: user_1,
+      side: 'left'
+    },
+    {
+      id: 2,
+      year: '2009',
+      title: 'Early Adventures',
+      description:
+        'First steps into the wider world, filled with curiosity and wonder.',
+      image: user_2,
+      side: 'right'
+    },
+    {
+      id: 3,
+      year: '2013',
+      title: 'Discovering Passions',
+      description:
+        'Moments of joy as new hobbies and talents begin to shine.',
+      image: user_3,
+      side: 'left'
+    },
+    {
+      id: 4,
+      year: '2018',
+      title: 'Memories with Loved Ones',
+      description:
+        'Special days spent with family and friends, creating stories to treasure.',
+      image: user_4,
+      side: 'right'
+    },
+    {
+      id: 5,
+      year: '2021',
+      title: 'Stepping Forward',
+      description:
+        'Entering new phases in life with determination and hope.',
+      image: user_5,
+      side: 'left'
+    },
+    {
+      id: 6,
+      year: '2023',
+      title: 'Shared Laughter',
+      description:
+        'Smiles, inside jokes, and late-night talks that stay in the heart.',
+      image: user_6,
+      side: 'right'
+    },
+    {
+      id: 7,
+      year: '2025',
+      title: 'Looking Ahead',
+      description:
+        'With new dreams in sight, the best chapters are still to come.',
+      image: user_7,
+      side: 'left'
+    }
+  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -100,11 +99,11 @@ const milestones = [
 
   return (
     <section id="timeline" className="py-20 relative">
-      {/* Background */}
+      {/* **Background Layer** */}
       <div className="absolute inset-0 scrapbook-paper opacity-20"></div>
       
       <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
+        {/* **Section Header** */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -124,7 +123,7 @@ const milestones = [
           </p>
         </motion.div>
 
-        {/* Timeline */}
+        {/* **Timeline Content** */}
         <div className="max-w-6xl mx-auto">
           <motion.div
             variants={containerVariants}
@@ -132,12 +131,12 @@ const milestones = [
             whileInView="visible"
             className="relative"
           >
-            {/* Central Timeline Line */}
+            {/* **Central Timeline Line** */}
             <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-pink-300 via-lavender-300 to-blue-300 h-full hidden md:block"></div>
 
-            {/* Milestones */}
+            {/* **Milestones Mapping** */}
             <div className="space-y-12 md:space-y-16">
-              {milestones.map((milestone, index) => (
+              {milestones.map((milestone) => (
                 <motion.div
                   key={milestone.id}
                   variants={milestoneVariants}
@@ -147,28 +146,28 @@ const milestones = [
                       : 'md:flex-row md:text-left'
                   } flex-col text-center`}
                 >
-                  {/* Content */}
+                  {/* **Milestone Text Content** */}
                   <div className={`md:w-5/12 ${milestone.side === 'left' ? 'md:pr-8' : 'md:pl-8'}`}>
                     <motion.div
                       className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 scrapbook-shadow"
                       whileHover={{ scale: 1.02 }}
                     >
-                      {/* Year Badge */}
+                      {/* **Year Badge** */}
                       <div className="inline-block bg-gradient-to-r from-pink-400 to-lavender-400 text-white px-4 py-2 rounded-full text-lg font-bold mb-4">
                         {milestone.year}
                       </div>
 
-                      {/* Title */}
+                      {/* **Title** */}
                       <h3 className="handwritten text-2xl text-gray-800 mb-3">
                         {milestone.title}
                       </h3>
 
-                      {/* Description */}
+                      {/* **Description** */}
                       <p className="text-gray-600 leading-relaxed">
                         {milestone.description}
                       </p>
 
-                      {/* Decorative element */}
+                      {/* **Decorative Icons** */}
                       <div className="mt-4 flex justify-center md:justify-start">
                         <div className="flex gap-1">
                           <Star className="w-4 h-4 text-yellow-400" />
@@ -179,12 +178,12 @@ const milestones = [
                     </motion.div>
                   </div>
 
-                  {/* Timeline Dot */}
+                  {/* **Timeline Dot (Desktop)** */}
                   <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-white border-4 border-pink-400 rounded-full z-10 shadow-lg">
                     <div className="w-full h-full bg-pink-400 rounded-full animate-pulse"></div>
                   </div>
 
-                  {/* Image */}
+                  {/* **Milestone Image** */}
                   <div className={`md:w-5/12 ${milestone.side === 'left' ? 'md:pl-8' : 'md:pr-8'} mt-4 md:mt-0`}>
                     <motion.div
                       className="polaroid-frame scrapbook-shadow bg-white max-w-xs mx-auto"
@@ -201,7 +200,7 @@ const milestones = [
                     </motion.div>
                   </div>
 
-                  {/* Mobile Timeline Dot */}
+                  {/* **Timeline Dot (Mobile)** */}
                   <div className="md:hidden w-4 h-4 bg-pink-400 rounded-full mt-4 mb-4"></div>
                 </motion.div>
               ))}
@@ -209,7 +208,7 @@ const milestones = [
           </motion.div>
         </div>
 
-        {/* Floating decorative elements */}
+        {/* **Floating Decorative Elements** */}
         <div className="absolute inset-0 pointer-events-none">
           {[...Array(8)].map((_, i) => (
             <motion.div
@@ -246,4 +245,3 @@ const milestones = [
 };
 
 export default Timeline;
-

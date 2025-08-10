@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 import '../App.css';
 
-// Utility to display relative time (e.g. "3 hours ago")
+// **Utility Function** → Converts a given date string to "x min ago" format
 function getRelativeTimeFromDate(dateString, now = new Date()) {
   const created = new Date(dateString);
   const diffMs = now - created;
@@ -25,63 +25,61 @@ function getRelativeTimeFromDate(dateString, now = new Date()) {
 }
 
 const Guestbook = () => {
+  // **Default preloaded birthday wishes**  
+  // TODO: Change messages/names if you want your own default wishes.
   const defaultMessages = [
     {
       id: 1,
-      name: 'Suraj (Dad)',
-      message:
-        'Happy Birthday, my princess. From the very first moment I held you, I knew you were my heart outside my body. Keep shining, and remember — I’m always proud of you. ❤️',
-      createdAt: '2025-07-29T18:36:10.964Z',
+      name: 'Alex',
+      message: 'Wishing you a wonderful day filled with joy, laughter, and all your favorite things! 🎉',
+      createdAt: new Date(Date.now() - 5 * 60 * 1000).toISOString(), // 5 min ago
       color: 'bg-yellow-100',
       isDefault: true
     },
     {
       id: 2,
-      name: 'Asha (Mom)',
-      message:
-        'Happy Birthday Kulli!. You bring joy to everyone around you — never stop being your beautiful self. Happy Birthday! 💖',
-      createdAt: '2025-07-29T17:36:10.964Z',
+      name: 'Jamie',
+      message: 'Happy celebrations! Here’s to another amazing year ahead. 🥳',
+      createdAt: new Date(Date.now() - 15 * 60 * 1000).toISOString(),
       color: 'bg-pink-100',
       isDefault: true
     },
     {
       id: 3,
-      name: 'Sanjitha (Little Sister)',
-      message:
-        'Happy Birthday Lakshmi! You’re not just my sister — you’re my best friend, my secret keeper, and my biggest inspiration. I love you more than you know! 💫',
-      createdAt: '2025-07-29T16:36:10.964Z',
+      name: 'Taylor',
+      message: 'May this day be as bright and special as you are. ✨',
+      createdAt: new Date(Date.now() - 45 * 60 * 1000).toISOString(),
       color: 'bg-blue-100',
       isDefault: true
     },
     {
       id: 4,
-      name: 'Golu (Little Brother)',
-      message:
-        'Happy Birthday Didi! You’re the coolest and kindest big sister ever. I’m lucky to have you — today’s all about you (and maybe cake)! 🎂',
-      createdAt: '2025-07-29T15:36:10.964Z',
+      name: 'Riley',
+      message: 'Here’s to unforgettable memories and new adventures! 🌟',
+      createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
       color: 'bg-green-100',
       isDefault: true
     },
     {
       id: 5,
-      name: 'Trisha (Friend)',
-      message:
-        'Hey Diya! Wishing you a birthday filled with love, laughter, and everything that makes you happy. So grateful for our friendship. 💛',
-      createdAt: '2025-07-29T14:36:10.964Z',
+      name: 'Jordan',
+      message: 'Wishing you endless smiles and warm moments today. 💛',
+      createdAt: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString(),
       color: 'bg-purple-100',
       isDefault: true
     },
     {
       id: 6,
-      name: 'Shashank (If uk uk)',
-      message:
-        'Hey Z! Life wouldn’t be the same without our weird conversations and endless talks. Here’s to many more memories together! 🥳',
-      createdAt: '2025-07-29T13:36:10.964Z',
+      name: 'Casey',
+      message: 'Hope your day is filled with love, laughter, and cake! 🎂',
+      createdAt: new Date(Date.now() - 8 * 60 * 60 * 1000).toISOString(),
       color: 'bg-orange-100',
       isDefault: true
     }
   ];
 
+  // **Sticky note background color pool**  
+  // TODO: Add/remove colors if you want a different palette.
   const stickyNoteColors = [
     'bg-yellow-100',
     'bg-pink-100',
@@ -91,13 +89,14 @@ const Guestbook = () => {
     'bg-orange-100'
   ];
 
+  // **State hooks** → stores messages, inputs, deleted item for undo, and current time
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [newName, setNewName] = useState('');
   const [lastDeleted, setLastDeleted] = useState(null);
   const [now, setNow] = useState(new Date());
 
-  // Update clock every minute to keep timestamps fresh
+  // **Update "x min ago" clock every 60 seconds**
   useEffect(() => {
     const timer = setInterval(() => {
       setNow(new Date());
@@ -105,7 +104,7 @@ const Guestbook = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Load messages from localStorage + defaults
+  // **Load messages from localStorage + merge with defaults**
   useEffect(() => {
     try {
       const stored = JSON.parse(localStorage.getItem('birthdayMessages'));
@@ -120,11 +119,14 @@ const Guestbook = () => {
     }
   }, []);
 
+  // **Helper** → Saves only user-added messages (not defaults) into localStorage
   const saveToStorage = (msgList) => {
     const userOnly = msgList.filter((m) => !m.isDefault);
     localStorage.setItem('birthdayMessages', JSON.stringify(userOnly));
   };
 
+  // **Handles new message submission**
+  // TODO: Adjust guestbook size limit if needed.
   const handleSubmit = (e) => {
     e.preventDefault();
     const userMessages = messages.filter((m) => !m.isDefault);
@@ -139,8 +141,7 @@ const Guestbook = () => {
         name: newName.trim(),
         message: newMessage.trim(),
         createdAt: new Date().toISOString(),
-        color:
-          stickyNoteColors[Math.floor(Math.random() * stickyNoteColors.length)],
+        color: stickyNoteColors[Math.floor(Math.random() * stickyNoteColors.length)],
         isDefault: false
       };
       const updated = [newMsg, ...messages];
@@ -151,6 +152,7 @@ const Guestbook = () => {
     }
   };
 
+  // **Deletes a message** (only if it's user-added)
   const handleDelete = (id) => {
     const toDelete = messages.find((m) => m.id === id);
     if (!toDelete || toDelete.isDefault) return;
@@ -158,9 +160,10 @@ const Guestbook = () => {
     setMessages(updated);
     setLastDeleted(toDelete);
     saveToStorage(updated);
-    setTimeout(() => setLastDeleted(null), 5000);
+    setTimeout(() => setLastDeleted(null), 5000); // Auto-clear undo after 5s
   };
 
+  // **Restores last deleted message**
   const handleUndo = () => {
     if (!lastDeleted) return;
     const updated = [lastDeleted, ...messages];
@@ -169,6 +172,7 @@ const Guestbook = () => {
     setLastDeleted(null);
   };
 
+  // **Framer Motion animation variants**
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -189,9 +193,11 @@ const Guestbook = () => {
 
   return (
     <section id="guestbook" className="py-20 relative">
+      {/* **Background scrapbook texture** */}
       <div className="absolute inset-0 scrapbook-paper opacity-20"></div>
       <div className="container mx-auto px-4 relative z-10">
-        {/* Header */}
+        
+        {/* **Header Section** */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -206,12 +212,11 @@ const Guestbook = () => {
             <MessageCircle className="w-8 h-8 text-pink-500" />
           </div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Leave a special message for the birthday star! Your words will be
-            treasured forever.
+            Leave a special message for the birthday star! Your words will be treasured forever.
           </p>
         </motion.div>
 
-        {/* Form */}
+        {/* **Form Section** */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -222,12 +227,14 @@ const Guestbook = () => {
             Share Your Birthday Wishes
           </h3>
 
+          {/* **Limit warning** */}
           {messages.filter((m) => !m.isDefault).length >= 14 && (
             <div className="text-center text-red-500 font-semibold mb-4">
               🎈 Guestbook limit reached (20 total). Only 14 user wishes allowed.
             </div>
           )}
 
+          {/* **Input Fields** */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid md:grid-cols-2 gap-4">
               <div>
@@ -259,6 +266,8 @@ const Guestbook = () => {
                 />
               </div>
             </div>
+
+            {/* **Submit Button** */}
             <div className="text-center">
               <motion.button
                 type="submit"
@@ -274,7 +283,7 @@ const Guestbook = () => {
           </form>
         </motion.div>
 
-        {/* Undo Message */}
+        {/* **Undo Toast Notification** */}
         <AnimatePresence>
           {lastDeleted && (
             <motion.div
@@ -285,9 +294,7 @@ const Guestbook = () => {
               transition={{ duration: 0.4 }}
               className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50"
             >
-              <motion.div
-                className="flex items-center gap-3 bg-yellow-100 border border-yellow-300 px-5 py-3 rounded-lg shadow-xl text-yellow-800"
-              >
+              <motion.div className="flex items-center gap-3 bg-yellow-100 border border-yellow-300 px-5 py-3 rounded-lg shadow-xl text-yellow-800">
                 <RotateCcw className="w-4 h-4" />
                 <span className="text-sm font-medium">Message deleted</span>
                 <button
@@ -301,7 +308,7 @@ const Guestbook = () => {
           )}
         </AnimatePresence>
 
-        {/* Message Wall */}
+        {/* **Message Wall Section** */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -319,16 +326,17 @@ const Guestbook = () => {
                 whileHover={{ rotate: 0, scale: 1.05, zIndex: 10 }}
                 className={`${message.color} p-6 rounded-lg shadow-lg relative`}
               >
+                {/* **Message text** */}
                 <div className="mb-4">
-                  <p className="text-gray-800 leading-relaxed">
+                  <p className="text-gray-800 leading-relaxed font-semibold">
                     "{message.message}"
                   </p>
                 </div>
+
+                {/* **Author + Actions** */}
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-medium text-gray-700">
-                      {message.name}
-                    </p>
+                    <p className="font-medium text-gray-700">{message.name}</p>
                     <p className="text-sm text-gray-500">
                       {getRelativeTimeFromDate(message.createdAt, now)}
                     </p>
@@ -347,6 +355,8 @@ const Guestbook = () => {
                     <Star className="w-4 h-4 text-yellow-400" />
                   </div>
                 </div>
+
+                {/* **Top decoration tab** */}
                 <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-12 h-6 bg-white/70 border border-gray-200 rounded-sm"></div>
               </motion.div>
             ))}

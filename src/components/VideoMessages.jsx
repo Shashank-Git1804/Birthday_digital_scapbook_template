@@ -1,14 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Pause, Video, Heart, Maximize, Volume2, VolumeX } from 'lucide-react';
-// import v1 from '../assets/videos/demo.mp4';
-// import v2 from '../assets/videos/music.mp4';
-import aunty from '../assets/videos/aunty.mp4';
-import uncle from '../assets/videos/uncle.mp4';
-import golu from '../assets/videos/golu.mp4';
-import sanju from '../assets/videos/sanju.mp4';
-import shashank from '../assets/videos/shashank.mp4';
-import trisha from '../assets/videos/trisha.mp4';
+
+// **TODO: Uncomment and replace with your own video imports if you want actual video files**
+// import v1 from '../assets/videos/v1.mp4';
+
+// **TODO: Replace these image imports with your own thumbnail images if needed**
 import dad_tb from '../assets/images/Hide/dad_tb.jpg';
 import mom_tb from '../assets/images/Hide/mom_tb.jpg';
 import sis_tb from '../assets/images/Hide/sis_tb.jpg';
@@ -16,6 +13,7 @@ import bro_tb from '../assets/images/Hide/bro_tb.jpg';
 import bff_tb from '../assets/images/Hide/bff_tb.jpg';
 import friends_tb from '../assets/images/Hide/friends_tb.jpg';
 import bestie_tb from '../assets/images/Hide/bestie_tb.jpg';
+
 import '../App.css';
 
 const VideoMessages = () => {
@@ -26,73 +24,68 @@ const VideoMessages = () => {
   const videoRefs = useRef({});
   const inactivityTimer = useRef(null);
 
+  // **TODO: Customize video list — add your own titles, thumbnails, and messages**
   const videos = [ 
-  {
-    id: 1,
-    title: 'Birthday Wish from Dad',
-    thumbnail: dad_tb,
-    videoUrl: uncle,
-    sender: 'Dad',
-    message: 'Happy Birthday Lakshmi! Pappa is so proud of the amazing girl you’ve become. 💝'
-  },
-  {
-    id: 2,
-    title: 'Birthday Wish from Mom',
-    thumbnail: mom_tb,
-    videoUrl: aunty,
-    sender: 'Mom',
-    message: 'Huttu habbada shubhashayagalu Kulli! Amma loves you endlessly. 💖'
-  },
-  {
-    id: 3,
-    title: 'Birthday Wish from Sanju',
-    thumbnail: sis_tb,
-    videoUrl: sanju,
-    sender: 'Sanju',
-    message: 'Happy Birth day Lakshmi! You’ll always be my fav person to fight and laugh with! 💟'
-  },
-  {
-    id: 4,
-    title: 'Birthday Wish from Golu',  
-    thumbnail: bro_tb,
-    videoUrl: golu,
-    sender: 'Golu',
-    message: 'Happi b’day Diya dii!! 🎂💛'
-  },
-  {
-    id: 5,
-    title: 'Birthday Wish from Shashank',
-    thumbnail: bff_tb,
-    videoUrl: shashank,
-    sender: 'Shashank',
-    message: 'Happy Birthday Day Z! From dance class days till now — still the same sparkle! 💃✨'
-  },
-  {
-    id: 6,
-    title: 'Birthday Wish from Trisha',  
-    thumbnail: friends_tb,
-    videoUrl: trisha,
-    sender: 'Trisha',
-    message: 'Happy Birthday day Diya! Life’s more fun with a good friend like you! 😄💕'
-  },
-  // {
-  //   id: 7,
-  //   title: 'Childhood Memories',
-  //   thumbnail: null,
-  //   videoUrl: v1,
-  //   sender: 'Sarah',
-  //   message: 'Those silly childhood moments with you still live rent-free in my heart! ❤️'
-  // },
-  // {
-  //   id: 8,
-  //   title: 'Work Team Celebration',
-  //   thumbnail: null,
-  //   videoUrl: v1,
-  //   sender: 'Work Family',
-  //   message: 'Office isn’t the same without your jokes and chaos — happy bday superstar! 🎉'
-  // }
-];
+    {
+      id: 1,
+      title: 'Birthday Wish from a Loving Parent', // **TODO: Change title**
+      thumbnail: dad_tb, // **TODO: Change thumbnail image**
+      videoUrl: null, // **TODO: Add video file URL or leave null for thumbnail only**
+      sender: 'Parent', // **TODO: Change sender name**
+      message: 'Happy Birthday! We are so proud of the amazing person you are becoming. 💝' // **TODO: Change message**
+    },
+    {
+      id: 2,
+      title: 'Birthday Wish from Mom',
+      thumbnail: mom_tb,
+      videoUrl: null,
+      sender: 'Mom',
+      message: 'Wishing you the happiest birthday ever! You are loved beyond words. 💖'
+    },
+    {
+      id: 3,
+      title: 'Birthday Wish from a Sibling',
+      thumbnail: sis_tb,
+      videoUrl: null,
+      sender: 'Sibling',
+      message: 'Happy Birthday! You’ll always be my favorite partner in fun and laughter. 💟'
+    },
+    {
+      id: 4,
+      title: 'Birthday Wish from a Brother',  
+      thumbnail: bro_tb,
+      videoUrl: null,
+      sender: 'Brother',
+      message: 'Happy Birthday! May your day be filled with joy and sweet memories. 🎂💛'
+    },
+    {
+      id: 5,
+      title: 'Birthday Wish from a Best Friend',
+      thumbnail: bff_tb,
+      videoUrl: null,
+      sender: 'Best Friend',
+      message: 'Happy Birthday! From the first time we met till now — your smile still shines just as bright. 💃✨'
+    },
+    {
+      id: 6,
+      title: 'Birthday Wish from a Friend',  
+      thumbnail: friends_tb,
+      videoUrl: null,
+      sender: 'Friends',
+      message: 'Happy Birthday! Life is always more fun with friends like you. 😄💕'
+    },
+    // **TODO: Example of adding a new video**
+    // {
+    //   id: 7,
+    //   title: 'Childhood Memories',
+    //   thumbnail: null,
+    //   videoUrl: v1,
+    //   sender: 'Sarah',
+    //   message: 'Those silly childhood moments with you still live rent-free in my heart! ❤️'
+    // }
+  ];
 
+  // **Generate thumbnails automatically for videos without one**
   useEffect(() => {
     videos.forEach(video => {
       if (!video.thumbnail && !generatedThumbnails[video.id]) {
@@ -101,6 +94,7 @@ const VideoMessages = () => {
     });
   }, []);
 
+  // **Auto-hide controls after inactivity**
   useEffect(() => {
     const resetTimer = () => {
       setShowControls(true);
@@ -121,6 +115,7 @@ const VideoMessages = () => {
     };
   }, [playingVideo]);
 
+  // **Generate video preview thumbnail**
   const generateThumbnail = (video) => {
     const videoElement = document.createElement('video');
     videoElement.src = video.videoUrl;
@@ -139,6 +134,7 @@ const VideoMessages = () => {
     });
   };
 
+  // **Play/Pause video**
   const handlePlayPause = (id) => {
     if (playingVideo === id) {
       videoRefs.current[id].pause();
@@ -152,6 +148,7 @@ const VideoMessages = () => {
     }
   };
 
+  // **Mute/Unmute video**
   const handleMuteToggle = (id) => {
     const video = videoRefs.current[id];
     if (video) {
@@ -182,8 +179,11 @@ const VideoMessages = () => {
 
   return (
     <section id="videos" className="py-20 relative">
+      {/* **Background paper effect** */}
       <div className="absolute inset-0 scrapbook-paper opacity-20"></div>
+
       <div className="container mx-auto px-4 relative z-10">
+        {/* **Section Header** */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -200,6 +200,7 @@ const VideoMessages = () => {
           </p>
         </motion.div>
 
+        {/* **Video Grid** */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -215,6 +216,8 @@ const VideoMessages = () => {
             >
               <div className="polaroid-frame scrapbook-shadow bg-white">
                 <div className="relative overflow-hidden rounded-lg mb-4">
+                  
+                  {/* **Video element** */}
                   <video
                     ref={el => videoRefs.current[video.id] = el}
                     src={video.videoUrl}
@@ -226,6 +229,7 @@ const VideoMessages = () => {
                     muted={isMuted}
                   />
 
+                  {/* **Thumbnail + Play button** */}
                   {playingVideo !== video.id && (
                     <>
                       <img
@@ -246,9 +250,11 @@ const VideoMessages = () => {
                     </>
                   )}
 
+                  {/* **Custom Controls when playing** */}
                   {playingVideo === video.id && showControls && (
                     <div className="absolute inset-0 p-4 flex justify-between items-end pointer-events-none">
-                      {/* Bottom-left: Volume / Mute */}
+                      
+                      {/* Bottom-left: Volume */}
                       <div className="pointer-events-auto">
                         {isMobile ? (
                           <motion.button
@@ -308,6 +314,7 @@ const VideoMessages = () => {
                   )}
                 </div>
 
+                {/* **Video title, sender, message** */}
                 <div className="text-center">
                   <h3 className="handwritten text-xl text-gray-800 mb-2">{video.title}</h3>
                   <p className="text-sm text-gray-600 mb-2">
@@ -322,7 +329,7 @@ const VideoMessages = () => {
           ))}
         </motion.div>
 
-        {/* Decorative Hearts */}
+        {/* **Floating decorative hearts** */}
         <div className="absolute inset-0 pointer-events-none">
           {[...Array(6)].map((_, i) => (
             <motion.div
@@ -346,3 +353,4 @@ const VideoMessages = () => {
 };
 
 export default VideoMessages;
+

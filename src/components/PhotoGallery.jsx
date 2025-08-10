@@ -1,72 +1,77 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Camera, X, ChevronLeft, ChevronRight, Heart, Trash2, Infinity } from 'lucide-react';
-import first_pic_z from "../assets/images/Hide/1st_pic_z.jpg";
-import bff from "../assets/images/Hide/best_frn.jpg";
-import whole_fam from "../assets/images/Hide/whole_fam.jpg";
-import snow_cousins from "../assets/images/Hide/snow_cousins.jpg";
-import udupi_trip from "../assets/images/Hide/udupi_trip.jpg";
-import mom_daughter from "../assets/images/Hide/mom_daughter.jpg";
+import { Camera, X, ChevronLeft, ChevronRight, Heart, Trash2 } from 'lucide-react';
+import user_1 from "../assets/images/Hide/user_1.png";
+import user_2 from "../assets/images/Hide/user_2.png";
+import user_3 from "../assets/images/Hide/user_3.png";
+import user_4 from "../assets/images/Hide/user_4.png";
+import user_5 from "../assets/images/Hide/user_5.png";
+import user_6 from "../assets/images/Hide/user_6.png";
 import '../App.css';
 
+// **📸 Static Photo Data**
+// **TODO: Replace `src` with your own image imports**
+// **TODO: Update `caption`, `year`, and `category` to match your real photos**
 const staticPhotos = [ 
   {
     id: 1,
-    src: first_pic_z,
-    caption: 'First photo of you captured on a mobile phone',
-    year: '2007',
-    category: 'childhood',
+    src: user_1,
+    caption: 'The beginning of a beautiful story',
+    year: '2004',
+    category: 'beginnings',
   },
   {
     id: 2,
-    src: mom_daughter,
-    caption: 'First dance performance — so excited!',
-    year: '2010',
-    category: 'childhood',
+    src: user_2,
+    caption: 'A joyful celebration to remember',
+    year: '2008',
+    category: 'celebrations',
   },
   {
     id: 3,
-    src: whole_fam,
-    caption: 'Family portrait — all together',
-    year: '2012',
+    src: user_3,
+    caption: 'Cherished moments with loved ones',
+    year: '2011',
     category: 'family',
   },
   {
     id: 4,
-    src: snow_cousins,
-    caption: 'Snow-city adventure with cousins',
-    year: '2017',
-    category: 'travel',
+    src: user_4,
+    caption: 'Exploring new horizons',
+    year: '2016',
+    category: 'adventures',
   },
   {
     id: 5,
-    src: udupi_trip,
-    caption: 'Udupi trip — we made it happen!',
-    year: '2025',
-    category: 'travel',
+    src: user_5,
+    caption: 'A day filled with laughter and sunshine',
+    year: '2019',
+    category: 'getaways',
   },
   { 
     id: 6,
-    src: bff,
-    caption: 'Best friends forever ∞',
-    year: 'Forever ∞',
-    category: 'friends',
+    src: user_6,
+    caption: 'Bonds that stand the test of time',
+    year: '2023',
+    category: 'friendship',
   },
 ];
 
-
 const PhotoGallery = () => {
-  const [photos, setPhotos] = useState(staticPhotos);
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [photos, setPhotos] = useState(staticPhotos); // **Holds the gallery photo list**
+  const [selectedPhoto, setSelectedPhoto] = useState(null); // **Currently opened photo in lightbox**
+  const [currentIndex, setCurrentIndex] = useState(0); // **Tracks index for lightbox navigation**
 
+  // **Open photo in lightbox**
   const openLightbox = (photo, index) => {
     setSelectedPhoto(photo);
     setCurrentIndex(index);
   };
 
+  // **Close the lightbox**
   const closeLightbox = () => setSelectedPhoto(null);
 
+  // **Navigate to next or previous photo**
   const navigatePhoto = (direction) => {
     const newIndex =
       direction === 'next'
@@ -76,17 +81,21 @@ const PhotoGallery = () => {
     setSelectedPhoto(photos[newIndex]);
   };
 
+  // **Delete a photo**
+  // **TODO: Decide if delete should be permanent or temporary**
   const deletePhoto = (id) => {
     const updated = photos.filter((photo) => photo.id !== id);
     setPhotos(updated);
     if (selectedPhoto?.id === id) closeLightbox();
   };
 
+  // **Animation container variants**
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
   };
 
+  // **Animation for individual photos**
   const photoVariants = {
     hidden: { opacity: 0, scale: 0.8, rotateY: 90 },
     visible: { opacity: 1, scale: 1, rotateY: 0, transition: { duration: 0.6 } },
@@ -94,9 +103,11 @@ const PhotoGallery = () => {
 
   return (
     <section id="gallery" className="py-20 relative">
+      {/* **Background texture overlay** */}
       <div className="absolute inset-0 scrapbook-paper opacity-20" />
 
       <div className="container mx-auto px-4 relative z-10">
+        {/* **Section Heading** */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -116,6 +127,8 @@ const PhotoGallery = () => {
           </p>
         </motion.div>
 
+        {/* **Photo Grid** */}
+        {/* **TODO: Adjust grid columns if you want more/fewer images per row** */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -138,6 +151,7 @@ const PhotoGallery = () => {
                     alt={photo.caption}
                     className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
                   />
+                  {/* **Hover overlay** */}
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="bg-white/90 rounded-full p-3">
@@ -145,6 +159,7 @@ const PhotoGallery = () => {
                     </div>
                   </div>
 
+                  {/* **Delete button** */}
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -156,6 +171,7 @@ const PhotoGallery = () => {
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
+                {/* **Caption and year** */}
                 <div className="text-center">
                   <p className="handwritten text-lg text-gray-700 mb-1">
                     {photo.caption}
@@ -169,7 +185,8 @@ const PhotoGallery = () => {
         </motion.div>
       </div>
 
-      {/* Lightbox */}
+      {/* **Lightbox Modal** */}
+      {/* **TODO: Add swipe support for mobile** */}
       <AnimatePresence>
         {selectedPhoto && (
           <motion.div
@@ -186,6 +203,7 @@ const PhotoGallery = () => {
               className="relative max-w-4xl max-h-full"
               onClick={(e) => e.stopPropagation()}
             >
+              {/* **Delete button inside lightbox** */}
               <button
                 onClick={() => deletePhoto(selectedPhoto.id)}
                 className="absolute top-4 right-4 bg-white text-red-600 px-3 py-1 rounded shadow hover:bg-red-100 z-50"
@@ -193,12 +211,15 @@ const PhotoGallery = () => {
                 Delete
               </button>
 
+              {/* **Close lightbox button** */}
               <button
                 onClick={closeLightbox}
                 className="absolute -top-12 right-0 text-white hover:text-pink-300 transition-colors"
               >
                 <X className="w-8 h-8" />
               </button>
+
+              {/* **Navigation buttons** */}
               <button
                 onClick={() => navigatePhoto('prev')}
                 className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 hover:text-pink-300 transition-colors"
@@ -211,6 +232,8 @@ const PhotoGallery = () => {
               >
                 <ChevronRight className="w-8 h-8" />
               </button>
+
+              {/* **Selected Photo Content** */}
               <div className="bg-white p-6 rounded-lg">
                 <img
                   src={selectedPhoto.src}
@@ -233,4 +256,3 @@ const PhotoGallery = () => {
 };
 
 export default PhotoGallery;
-

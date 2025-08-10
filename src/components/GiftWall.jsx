@@ -11,66 +11,76 @@ import {
   Undo,
   Trash,
 } from "lucide-react";
-import cas from "../assets/images/Hide/case.jpg";
-import flower from "../assets/images/Hide/flower.jpg";
 import "../App.css";
 
+/** 
+ * **GiftWall Component**
+ * This section displays a **virtual gift wall** where users can pin gifts, poems, messages, links, and images.
+ * Gifts are stored in `localStorage` so they persist between page reloads.
+ */
+
 const GiftWall = () => {
+  /** 
+   * **TODO:** Customize the default placeholder gifts below.
+   * You can replace image URLs, titles, messages, sender names, and colors.
+   */
   const staticGifts = [
     {
       id: 1,
       type: "image",
-      title: "Your Drawing Photo",
-      content: cas,
-      sender: "Me",
-      message: "This reminded me of you - pure joy and happiness!",
-      pinColor: "bg-pink-400",
+      title: "Image Placeholder", // **TODO:** Change to your own gift image title
+      content: "https://via.placeholder.com/300x200.png?text=Image+Placeholder", // **TODO:** Replace with your image URL
+      sender: "Sender Name", // **TODO:** Replace with sender name
+      message: "A short description of the image or why it’s shared.", // **TODO:** Customize description
+      pinColor: "bg-pink-400", // **TODO:** Change pin color if desired
       static: true,
     },
     {
       id: 2,
       type: "poem",
-      title: "Birthday Poem",
+      title: "Poem Placeholder", // **TODO:** Replace with custom poem title
       content:
-        "Z, you’re the spark in my quietest days,\nThe golden light that clears the haze.\nWhen skies turn gray or spirits bend,\nYou shine through like the truest friend.\n\nYou laugh like morning — fresh and bright,\nTurning my dark into soft daylight.\nYou speak in warmth, you move with grace,\nYou’ve built a home in time and space.\n\nNot everyone gets a sunshine like you,\nSteady, soft, and wildly true.\nIn you, I found a rarest kind —\nA light for heart, a mirror for mind.\n\nWe’ve shared our truths, our dreams, our mess,\nEvery odd joke and midnight guess.\nAnd if life dares to drift us wide,\nYou’ll still be my calm, my joy, my pride.\n\nSo here’s to you, Z — my light, my guide,\nMy sunshine soul I hold with pride. ☀️",
-      sender: "Me",
-      message: "A little poem from my heart to yours",
+        "Line 1 of a poem goes here.\nLine 2 continues the theme.\nLine 3 adds a thought or feeling.\nLine 4 wraps it with meaning.", // **TODO:** Replace with your poem
+      sender: "Sender Name",
+      message: "Optional message from the sender.",
       pinColor: "bg-yellow-400",
       static: true,
     },
     {
       id: 3,
       type: "image",
-      title: "Your own Rose flower Art",
-      content: flower,
-      sender: "Me",
-      message: "This reminded me of you - pure joy and happiness!",
-      pinColor: "bg-pink-400",
+      title: "Artwork or Photo Placeholder",
+      content: "https://via.placeholder.com/300x200.png?text=Artwork+Placeholder",
+      sender: "Sender Name",
+      message: "Brief caption or context for this artwork or photo.",
+      pinColor: "bg-green-400",
       static: true,
     },
     {
       id: 4,
       type: "link",
-      title: "Birthday Card",
-      content: "https://www.greetingsisland.com/ecard/pshismbbpmmu",
-      sender: "Me",
-      message: "Here's something special to brighten your day and make you smile 😊",
-      pinColor: "bg-yellow-400",
+      title: "Link Placeholder", // **TODO:** Replace with your own link
+      content: "https://example.com",
+      sender: "Sender Name",
+      message: "Short note about the link being shared.",
+      pinColor: "bg-blue-400",
       static: true,
     },
   ];
 
+  // **State hooks**
   const [gifts, setGifts] = useState([]);
   const [undoGift, setUndoGift] = useState(null);
   const [showAddForm, setShowAddForm] = useState(false);
   const [newGift, setNewGift] = useState({
-    type: "message",
+    type: "message", // default gift type
     title: "",
     content: "",
     sender: "",
     message: "",
   });
 
+  // **Available pin colors for variety**
   const pinColors = [
     "bg-pink-400",
     "bg-yellow-400",
@@ -80,16 +90,19 @@ const GiftWall = () => {
     "bg-orange-400",
   ];
 
+  /** **On component mount:** load gifts from localStorage and merge with static placeholders */
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem("giftWall") || "[]");
     setGifts([...staticGifts, ...stored]);
   }, []);
 
+  /** Save dynamic gifts to localStorage */
   const persistGifts = (giftList) => {
     const dynamicGifts = giftList.filter((g) => !g.static);
     localStorage.setItem("giftWall", JSON.stringify(dynamicGifts));
   };
 
+  /** Add a new gift to the wall */
   const handleAddGift = (e) => {
     e.preventDefault();
     if (!newGift.title || !newGift.content || !newGift.sender) return;
@@ -105,6 +118,7 @@ const GiftWall = () => {
     setGifts(updated);
     persistGifts(updated);
 
+    // Reset form
     setNewGift({
       type: "message",
       title: "",
@@ -115,6 +129,7 @@ const GiftWall = () => {
     setShowAddForm(false);
   };
 
+  /** Delete a gift (only if not static) and allow undo */
   const handleDelete = (id) => {
     const toDelete = gifts.find((g) => g.id === id);
     if (!toDelete || toDelete.static) return;
@@ -124,11 +139,13 @@ const GiftWall = () => {
     setGifts(updated);
     persistGifts(updated);
 
+    // Remove undo option after 5 seconds
     setTimeout(() => {
       setUndoGift(null);
     }, 5000);
   };
 
+  /** Restore deleted gift */
   const handleUndo = () => {
     if (!undoGift) return;
     const updated = [...gifts, undoGift];
@@ -137,6 +154,7 @@ const GiftWall = () => {
     setUndoGift(null);
   };
 
+  /** Render gift content based on type */
   const renderGiftContent = (gift) => {
     const scrollableStyle =
       "bg-white/80 p-3 rounded mb-3 text-sm whitespace-pre-line max-h-40 overflow-y-auto custom-scroll";
@@ -179,11 +197,13 @@ const GiftWall = () => {
   return (
     <section className="py-20 relative" id="gifts">
       <div className="container mx-auto px-4 relative z-10">
+        {/* Section Heading */}
         <div className="text-center mb-10">
           <Gift className="w-8 h-8 inline-block text-pink-500" />
           <h2 className="handwritten text-3xl">Virtual Gift Wall</h2>
         </div>
 
+        {/* Button to open form */}
         <div className="text-center mb-8">
           <motion.button
             onClick={() => setShowAddForm(true)}
@@ -196,6 +216,7 @@ const GiftWall = () => {
           </motion.button>
         </div>
 
+        {/* Gift Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {gifts.map((gift) => (
             <motion.div
@@ -206,26 +227,22 @@ const GiftWall = () => {
               whileHover={{ scale: 1.03 }}
               className="relative bg-white rounded-lg p-4 shadow"
             >
+              {/* Pin Indicator */}
               <div
                 className={`absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 ${gift.pinColor} rounded-full`}
               >
                 <div className="w-2 h-2 bg-white rounded-full mx-auto mt-1"></div>
               </div>
 
+              {/* Gift type + action icons */}
               <div className="flex justify-between mb-2">
                 <span className="text-xs px-2 py-1 bg-gray-100 rounded-full capitalize">
                   {gift.type}
                 </span>
                 <div className="flex items-center gap-1">
-                  {gift.type === "poem" && (
-                    <Star className="w-3 h-3 text-yellow-400" />
-                  )}
-                  {gift.type === "image" && (
-                    <Heart className="w-3 h-3 text-pink-400" />
-                  )}
-                  {gift.type === "gift" && (
-                    <Sparkles className="w-3 h-3 text-purple-400" />
-                  )}
+                  {gift.type === "poem" && <Star className="w-3 h-3 text-yellow-400" />}
+                  {gift.type === "image" && <Heart className="w-3 h-3 text-pink-400" />}
+                  {gift.type === "gift" && <Sparkles className="w-3 h-3 text-purple-400" />}
                   {!gift.static && (
                     <button
                       onClick={() => handleDelete(gift.id)}
@@ -237,6 +254,7 @@ const GiftWall = () => {
                 </div>
               </div>
 
+              {/* Gift content */}
               <h3 className="text-md font-semibold mb-2">{gift.title}</h3>
               {renderGiftContent(gift)}
               <p className="text-sm font-medium text-gray-700">
@@ -304,6 +322,8 @@ const GiftWall = () => {
                     <X className="w-5 h-5 text-gray-400 hover:text-gray-600" />
                   </button>
                 </div>
+
+                {/* Add Gift Form */}
                 <form onSubmit={handleAddGift} className="space-y-4">
                   <select
                     value={newGift.type}
