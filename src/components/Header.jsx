@@ -63,7 +63,7 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* **🎉 Site title** */}
-          {/* **TODO: Replace "(Name)" with the actual birthday person's name** */}
+          {/* TODO: Replace "(Name)" with the actual birthday person's name*/}
           <motion.div
             className="handwritten text-2xl md:text-3xl text-pink-600 font-bold"
             whileHover={{ scale: 1.05 }}

@@ -309,7 +309,7 @@ const Playlist = () => {
           className="text-center mt-8"
         >
           <a
-          /*TODO - change spotify link of your own */
+          //TODO - change spotify link of your own 
             href="https://open.spotify.com/playlist/37i9dQZF1DX4sWSpwq3LiO" 
             target="_blank"
             rel="noopener noreferrer"

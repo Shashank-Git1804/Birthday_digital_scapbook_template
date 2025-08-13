@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Play, Pause, Video, Heart, Maximize, Volume2, VolumeX } from 'lucide-react';
 
 // **TODO: Uncomment and replace with your own video imports if you want actual video files**
-// import v1 from '../assets/videos/v1.mp4';
+//import vdo_name from '../assets/videos/vdo_name.mp4';
 
 // **TODO: Replace these image imports with your own thumbnail images if needed**
 import dad_tb from '../assets/images/Hide/dad_tb.jpg';
@@ -30,7 +30,7 @@ const VideoMessages = () => {
       id: 1,
       title: 'Birthday Wish from a Loving Parent', // **TODO: Change title**
       thumbnail: dad_tb, // **TODO: Change thumbnail image**
-      videoUrl: null, // **TODO: Add video file URL or leave null for thumbnail only**
+      //videoUrl: vdo_name, // **TODO: Add video file URL or leave null for thumbnail only**
       sender: 'Parent', // **TODO: Change sender name**
       message: 'Happy Birthday! We are so proud of the amazing person you are becoming. 💝' // **TODO: Change message**
     },
